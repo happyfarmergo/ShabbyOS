@@ -24,6 +24,7 @@ PUBLIC void	delay(int time);
 void restart();
 
 /* main.c */
+PUBLIC void show_ready_list();
 void TestA();
 void TestB();
 void TestC();
@@ -35,6 +36,7 @@ PUBLIC void spurious_irq(int irq);
 /* clock.c */
 PUBLIC void clock_handler(int irq);
 PUBLIC void init_clock();
+PUBLIC void milli_delay(int milli_sec);
 
 /* keyboard.c */
 PUBLIC void init_keyboard();
@@ -67,6 +69,8 @@ PUBLIC  int     get_ticks();
 PUBLIC  void    write(char* buf, int len);
 
 //切换进程链表
-void change_proc_list(int pre_status, int next_status, proc * p);
+PUBLIC void change_proc_list(int pre_status, int next_status, proc * p);
 
-proc_node *add_proc_node(proc_node **head, proc *p);
+PUBLIC proc_node *add_proc_node(proc_node **head, proc *p);
+PUBLIC proc *select_one_proc();
+PUBLIC void init_proc();

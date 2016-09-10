@@ -15,28 +15,39 @@
 #include "global.h"
 #include "proto.h"
 
-EXTERN proc_node *h_ready, *h_waiting;
+EXTERN proc_node *h_ready[], *h_waiting;
 EXTERN proc_node proc_list[];
 EXTERN int index_free;
-
+EXTERN int k;
 PUBLIC void show_ready_list(){
-    proc_node *p = h_ready;
-    for(;p!=NULL; p = p->next)
-        disp_str(p->kproc->p_name);
-    disp_str("\n");
+    int i;
+    for(i = REALTIME; i >= IDLE; --i){
+        disp_str("\n");
+        disp_int(i);
+        disp_str(": ");
+        proc_node *p = h_ready[i];
+        for(;p!=NULL; p = p->next){
+            disp_str(p->kproc->p_name);
+            disp_int(p->kproc->ticks);
+            disp_str(" ");
+        }
+    }
 }
 
 
 PUBLIC   void kernel_init(){
-    h_ready = h_waiting = NULL;
+    h_waiting = NULL;
     index_free = 0;
-
+    k = 0;
     int i = 0;
     proc_node * p = proc_list;
     for(; i < MAX_PROCS; ++i){
         p->kproc = p->prev = p->next = NULL;
+        p->index = i;
         p++;
     }
+    for(i=0;i<PRIO_NUM;++i)
+        h_ready[i] = NULL;
 }
 
 
@@ -44,8 +55,10 @@ PUBLIC   void kernel_init(){
 PUBLIC int kernel_main()
 {
 	disp_str("-----\"kernel_main\" begins-----\n");
-
+    // clearScreen();
     kernel_init();
+
+    disp_str("test");
 
 	TASK*		p_task		= task_table;
 	PROCESS*	p_proc		= proc_table;
@@ -96,7 +109,7 @@ PUBLIC int kernel_main()
 
         //add
         p_proc->priority = prio;
-        p_proc->ticks = 200/(p_proc->priority);
+        p_proc->ticks = p_proc->priority * 10 + 10;
         p_proc->status = INIT;
 
         change_proc_list(INIT, READY, p_proc);
@@ -109,6 +122,9 @@ PUBLIC int kernel_main()
 		selector_ldt += 1 << 3;
 
 	}
+
+    disp_str("test");
+
 
     proc_table[1].nr_tty = 0;
     proc_table[2].nr_tty = 1;

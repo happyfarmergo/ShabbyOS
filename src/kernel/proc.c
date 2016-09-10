@@ -15,57 +15,40 @@
 #include "global.h"
 #include "proto.h"
 
-EXTERN proc_node *h_ready, *h_waiting;
+EXTERN proc_node *h_ready[], *h_waiting;
 EXTERN proc_node proc_list[];
 EXTERN int index_free;
-
-
+EXTERN int k;
 /*======================================================================*
                               schedule
  *======================================================================*/
 PUBLIC void schedule()
 {
-
-	// PROCESS* p;
-	// int	 greatest_ticks = 0;
-
-	// while (!greatest_ticks) {
-	// 	for (p = proc_table; p < proc_table+NR_TASKS+NR_PROCS; p++) {
-	// 		if (p->ticks > greatest_ticks) {
-	// 			greatest_ticks = p->ticks;
-	// 			p_proc_ready = p;
-	// 		}
-	// 	}
-
-	// 	if (!greatest_ticks) {
-	// 		for(p=proc_table;p<proc_table+NR_TASKS+NR_PROCS;p++) {
-	// 			p->ticks = p->priority;
-	// 		}
-	// 	}
-	// }
-
-	proc_node* p = h_ready;
-	proc *tar = NULL;
-	int prio = 0;
-	while(p){
-		if(p->kproc->priority > prio){
-			prio = p->kproc->priority;
-			tar = p->kproc;
-		}
-		p = p->next;
-	}
-
-	if(tar == NULL){//就绪队列空
-		//继续跑当前进程
-	}
-	else{			//找到优先级最高的进程
-		disp_str(tar->p_name);
-		change_proc_list(RUNNING, READY, p_proc_ready);//切换到就绪队列尾部
-		change_proc_list(READY, RUNNING, tar);         
-	}
-
-	p_proc_ready->ticks = 200/(p_proc_ready->priority);
+	// disp_int(k);
+	// k++;
+	proc * tar = select_one_proc();
 	
+	if(tar == NULL){//就绪队列空
+		init_proc();
+		// disp_str("\nrun all proc");
+		tar = select_one_proc();
+	}
+	//找到优先级最高的进程
+	// disp_str(tar->p_name);	
+	// disp_int(index_free);
+	change_proc_list(RUNNING, READY, p_proc_ready);//切换到就绪队列
+	// disp_int(index_free);
+
+	change_proc_list(READY, RUNNING, tar);         
+	// disp_int(index_free);
+
+	// disp_str(p_proc_ready->p_name);
+	// disp_str("\n");
+	// if(k==5){
+	// 	show_ready_list();
+	// 	while(1);
+	// }
+    // milli_delay(1000);
 }
 
 /*======================================================================*
@@ -79,6 +62,41 @@ PUBLIC int sys_get_ticks()
 
 
 //add
+
+void init_proc(){
+	// disp_str("init_proc");
+	int i;
+	for(i = REALTIME; i >= IDLE; --i){
+		proc_node * p = h_ready[i];
+		while(p!=NULL){
+			p->kproc->ticks = p->kproc->priority * 10 + 10;
+			p = p->next;
+		}
+	}
+}
+
+
+proc *select_one_proc(){
+
+
+	proc_node* p = NULL;
+	proc *tar = NULL;
+	int i = 0;
+	for(i = REALTIME; i>=IDLE; --i){
+		p = h_ready[i];
+
+		while(p!=NULL){
+			if(p->kproc->ticks > 0){
+				tar = p->kproc;
+				return tar;
+			}
+			p = p->next;
+		}
+	}
+
+	return NULL;
+
+}
 
 //添加node后更新index_free
 void update_proc_index(){
@@ -99,7 +117,9 @@ proc_node *remove_proc_node(proc_node **head, proc *p){
 	}
 	assert(tar != NULL);
 
+
 	if(tar == *head){
+		// disp_str(tar->kproc->p_name);
 		*head = tar->next;
 		tar->next->prev = NULL;
 		// disp_str("remove at head\n");
@@ -111,7 +131,10 @@ proc_node *remove_proc_node(proc_node **head, proc *p){
 	}
 
 	tar->prev = tar->next = tar->kproc = NULL;
+	index_free = tar->index;
 
+	// disp_str("remove: ");
+	// disp_int(index_free);
 	return tar;
 }
 
@@ -148,26 +171,27 @@ proc_node *add_proc_node(proc_node **head, proc *p){
 void change_proc_list(int pre_status, int next_status, proc * p){
 	assert(pre_status == p->status);
 	assert(pre_status != next_status);
+	assert(p->priority>=IDLE && p->priority <=REALTIME);
 
 	switch(pre_status){
 		case INIT:
 			assert(next_status == READY);
-			add_proc_node(&h_ready, p);
+			add_proc_node(&h_ready[p->priority], p);
 
 			break;
 		case RUNNING:
 			assert(next_status == READY || next_status == WAITING);
 			p_proc_ready = NULL;
 
-			proc_node **head = next_status == WAITING?&h_waiting:&h_ready;
+			proc_node **head = next_status == WAITING?&h_waiting:&h_ready[p->priority];
 			add_proc_node(head, p);
 
 			break;
 		case READY:
 			assert(next_status == RUNNING);
 
-			printf("start remove");
-			remove_proc_node(&h_ready, p);
+			// printf("start remove");
+			remove_proc_node(&h_ready[p->priority], p);
 
 			p_proc_ready = p;
 
@@ -176,7 +200,7 @@ void change_proc_list(int pre_status, int next_status, proc * p){
 			assert(next_status == READY);
 			remove_proc_node(&h_waiting, p);
 
-			add_proc_node(&h_ready, p);
+			add_proc_node(&h_ready[p->priority], p);
 
 			break;
 		default:

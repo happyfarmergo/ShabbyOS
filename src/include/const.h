@@ -14,7 +14,7 @@
 
 /* string */
 #define STR_DEFAULT_LEN 1024
-                                                    
+#define PRIO_NUM        5
 /* EXTERN */
 #define	EXTERN	extern	/* EXTERN is defined as extern except in global.c */
 

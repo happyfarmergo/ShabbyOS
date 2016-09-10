@@ -80,6 +80,7 @@ typedef struct proc_node
 	proc * kproc;        				//the process body;
 	struct proc_node * prev;		 	//the previous process in the list
 	struct proc_node * next;		 	//the next process in the list
+	int    index;
 }proc_node;
 
 
