@@ -24,6 +24,8 @@ PUBLIC void clock_handler(int irq)
 	ticks++;
 	p_proc_ready->ticks--;
 
+  // disp_str(p_proc_ready->p_name);
+
 	if (k_reenter != 0) {
 		return;
 	}

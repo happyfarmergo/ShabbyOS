@@ -288,3 +288,12 @@ PUBLIC void exception_handler(int vec_no, int err_code, int eip, int cs, int efl
 	}
 }
 
+PUBLIC void assertion_failure(char *exp, char *file, char *base_file, int line){
+    printf("assert fail: \n %s, %s, %s, %x", exp, file, base_file, line);
+    while(1);
+}
+
+PUBLIC void panic(){
+    printf("panic\n");
+    while(1);
+}

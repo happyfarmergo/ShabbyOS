@@ -1,0 +1,585 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"proc",
+				"proc_list"
+			],
+			[
+				"disp",
+				"disp_str"
+			],
+			[
+				"add",
+				"add_proc_node"
+			],
+			[
+				"next",
+				"next_status"
+			],
+			[
+				"prio",
+				"priority"
+			],
+			[
+				"asser",
+				"assertion_failure"
+			],
+			[
+				"byte",
+				"bytes_left"
+			],
+			[
+				"int",
+				"int 3 	Call to Interrupt Procedure"
+			],
+			[
+				"byet",
+				"bytes_left"
+			],
+			[
+				"bo",
+				"bochs"
+			],
+			[
+				"star",
+				"start"
+			],
+			[
+				"fno",
+				"fno-stack-protector"
+			],
+			[
+				"ST",
+				"STACK_SIZE_TTY"
+			],
+			[
+				"SRT",
+				"STACK_FRAME"
+			],
+			[
+				"kb",
+				"kb_in"
+			],
+			[
+				"kbi",
+				"KB_IN_BYTES"
+			],
+			[
+				"KB",
+				"KB_IN_BYTES"
+			],
+			[
+				"ke",
+				"kernel"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "include/proc.h",
+			"settings":
+			{
+				"buffer_size": 2617,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "kernel/global.c",
+			"settings":
+			{
+				"buffer_size": 1204,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "kernel/clock.c",
+			"settings":
+			{
+				"buffer_size": 1767,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "kernel/proc.c",
+			"settings":
+			{
+				"buffer_size": 3710,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "kernel/main.c",
+			"settings":
+			{
+				"buffer_size": 4149,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 485.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/smallboy/Documents/OS/ShabbyOS/src",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/include",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/kernel",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/lib"
+	],
+	"file_history":
+	[
+		"/home/smallboy/Documents/OS/ShabbyOS/src/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter7/o/kernel/proc.c",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/kernel/start.c",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/kernel/tty.c",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/kernel/printf.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/lib/syscall.asm",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/kernel/proc.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/kernel/systask.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/include/sys/proto.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/include/sys/proc.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/kernel/proc.c",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/include/proto.h",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/lib/string.asm",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/lib/kliba.asm",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/kernel/vsprintf.c",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/kernel/global.c",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/include/global.h",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/include/const.h",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/include/string.h",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/lib/klib.c",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/kernel/clock.c",
+		"/home/smallboy/Documents/OSCourseProject/OS_Project /Tinix-master/kernel/clock.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/c/include/sys/const.h",
+		"/home/smallboy/tools/web/vscode/bin/code",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/kernel/protect.c",
+		"/home/smallboy/Documents/OS/ShabbyOS/src/include/protect.h",
+		"/home/smallboy/Documents/OS/Cool-OS/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter5/i/bochsrc",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter5/i/boot/loader.asm",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter5/i/Makefile",
+		"/home/smallboy/Documents/OS/Cool-OS/boot/loader.asm",
+		"/home/smallboy/Documents/OS/Cool-OS/boot/boot.asm",
+		"/home/smallboy/Documents/OS/Cool-OS/kernel/main.c",
+		"/home/smallboy/Documents/OS/Cool-OS/command/Makefile",
+		"/home/smallboy/Documents/OS/Cool-OS/boot/include/fat12hdr.inc",
+		"/home/smallboy/Documents/OS/Cool-OS/boot/include/load.inc",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter5/i/boot/include/vbe.inc",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter5/i/Makefile.1",
+		"/home/smallboy/Documents/OS/Cool-OS/boot/include/asmhead.nas",
+		"/home/smallboy/Documents/OS/Cool-OS/boot/include/vbe.inc",
+		"/home/smallboy/Documents/OS/Cool-OS/boot/include/pm.inc",
+		"/home/smallboy/Documents/linux/Makefile",
+		"/home/smallboy/Documents/linux/kernel/system_call.s",
+		"/home/smallboy/Documents/linux/kernel/vsprintf.c",
+		"/home/smallboy/Documents/linux/kernel/asm.s",
+		"/home/smallboy/Documents/linux/init/main.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/cp.sh",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/xx.sh",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter11/a/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter11/c/command/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/kernel/global.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/include/sys/const.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/kernel/main.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/command/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter11/b/grubinst",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/include/sys/config.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/include/sys/global.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/kernel/tty.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/e/bochsrc",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/command/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/kernel/main.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/command/pwd.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/command/echo.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/lib/printf.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/fs/open.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/kernel/tty.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/kernel/console.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/mm/main.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/mm/exec.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/lib/syscall.asm",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/include/sys/proto.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/include/sys/proc.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/xx.sh",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/fs/read_write.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/fs/misc.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/fs/main.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/lib/write.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/bochsrc",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/include/string.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/include/type.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/kernel/kernel.asm",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/kernel/kliba.asm",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/lib/string.asm",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/kernel/systask.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/kernel/proc.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/kernel/protect.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/lib/stat.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/d/kernel/klib.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/c/kernel/main.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/c/command/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/c/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/c/command/start.asm",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/c/kernel/kliba.asm",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/c/lib/wait.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/c/lib/exit.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/c/lib/fork.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/c/lib/syscall.asm",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/c/bochsrc",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/b/kernel/main.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/b/mm/forkexit.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/b/mm/main.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/b/bochsrc",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/b/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/include/sys/fs.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/kernel/protect.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/mm/main.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/mm/forkexit.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/fs/main.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/bochsrc",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/kernel/global.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/include/sys/proc.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/include/sys/const.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/include/sys/config.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter10/a/include/sys/global.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter9/j/kernel/console.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter9/j/kernel/tty.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter9/j/kernel/main.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter9/j/lib/write.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter9/j/fs/read_write.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter9/j/bochsrc",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter9/i/kernel/main.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter9/i/include/sys/tty.h",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter9/i/kernel/tty.c",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter9/j/Makefile",
+		"/home/smallboy/Documents/ORANGES'_自己动手写操作系统_光盘源代码/chapter9/i/Makefile"
+	],
+	"find":
+	{
+		"height": 38.0
+	},
+	"find_in_files":
+	{
+		"height": 105.0,
+		"where_history":
+		[
+			"",
+			"<open folders>"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"start.o",
+			"PROCESS",
+			"LABEL_VBE_MODE",
+			"DispStrRealMode",
+			"VMODE",
+			"DispStrRealMode",
+			"LOADER_PHY_ADDR",
+			"stack",
+			"create_file",
+			"phys",
+			"phys_copy",
+			"stat",
+			"fs_fork",
+			"select_console",
+			"init_screen",
+			"start.c",
+			"sync_inode",
+			"new_dir_entry",
+			"fsbuf",
+			"MINOR_BOOT",
+			"keyboard_mapping",
+			"struct hd_info",
+			"hd_info",
+			"partition",
+			"hd_identify",
+			":\n",
+			"gdt_ptr"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "include/proc.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2617,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2277,
+								2277
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1407.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "kernel/global.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1204,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1149,
+								1149
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 462.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "kernel/clock.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1767,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								476,
+								476
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 264.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "kernel/proc.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3710,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1282,
+								1282
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1386.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "kernel/main.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4149,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								472,
+								472
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "main.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 153.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

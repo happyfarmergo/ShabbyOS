@@ -15,35 +15,62 @@
 #include "global.h"
 #include "proto.h"
 
+EXTERN proc_node *h_ready, *h_waiting;
+EXTERN proc_node proc_list[];
+EXTERN int index_free;
 
-/*======================================================================*
-                            kernel_main
- *======================================================================*/
+PUBLIC void show_ready_list(){
+    proc_node *p = h_ready;
+    for(;p!=NULL; p = p->next)
+        disp_str(p->kproc->p_name);
+    disp_str("\n");
+}
+
+
+PUBLIC   void kernel_init(){
+    h_ready = h_waiting = NULL;
+    index_free = 0;
+
+    int i = 0;
+    proc_node * p = proc_list;
+    for(; i < MAX_PROCS; ++i){
+        p->kproc = p->prev = p->next = NULL;
+        p++;
+    }
+}
+
+
+
 PUBLIC int kernel_main()
 {
 	disp_str("-----\"kernel_main\" begins-----\n");
 
+    kernel_init();
+
 	TASK*		p_task		= task_table;
 	PROCESS*	p_proc		= proc_table;
-	char*		p_task_stack	= task_stack + STACK_SIZE_TOTAL;
+	char*		p_task_stack= task_stack + STACK_SIZE_TOTAL;
 	u16		selector_ldt	= SELECTOR_LDT_FIRST;
 	int i;
-        u8              privilege;
-        u8              rpl;
-        int             eflags;
+    u8              privilege;
+    u8              rpl;
+    int             eflags;
+    int             prio;
 	for (i = 0; i < NR_TASKS+NR_PROCS; i++) {
-                if (i < NR_TASKS) {     /* 任务 */
-                        p_task    = task_table + i;
-                        privilege = PRIVILEGE_TASK;
-                        rpl       = RPL_TASK;
-                        eflags    = 0x1202; /* IF=1, IOPL=1, bit 2 is always 1 */
-                }
-                else {                  /* 用户进程 */
-                        p_task    = user_proc_table + (i - NR_TASKS);
-                        privilege = PRIVILEGE_USER;
-                        rpl       = RPL_USER;
-                        eflags    = 0x202; /* IF=1, bit 2 is always 1 */
-                }
+            if (i < NR_TASKS) {     /* 任务 */
+                p_task    = task_table + i;
+                privilege = PRIVILEGE_TASK;
+                rpl       = RPL_TASK;
+                prio      = HIGH;
+                eflags    = 0x1202; /* IF=1, IOPL=1, bit 2 is always 1 */
+            }
+            else {                  /* 用户进程 */
+                p_task    = user_proc_table + (i - NR_TASKS);
+                privilege = PRIVILEGE_USER;
+                rpl       = RPL_USER;
+                prio      = MEDIUM;
+                eflags    = 0x202; /* IF=1, bit 2 is always 1 */
+            }
 
 		strcpy(p_proc->p_name, p_task->name);	// name of the process
 		p_proc->pid = i;			// pid
@@ -67,30 +94,33 @@ PUBLIC int kernel_main()
 		p_proc->regs.esp = (u32)p_task_stack;
 		p_proc->regs.eflags = eflags;
 
+        //add
+        p_proc->priority = prio;
+        p_proc->ticks = 200/(p_proc->priority);
+        p_proc->status = INIT;
+
+        change_proc_list(INIT, READY, p_proc);
+
 		p_proc->nr_tty = 0;
 
 		p_task_stack -= p_task->stacksize;
 		p_proc++;
 		p_task++;
 		selector_ldt += 1 << 3;
+
 	}
 
-	proc_table[0].ticks = proc_table[0].priority = 15;
-	proc_table[1].ticks = proc_table[1].priority =  5;
-	proc_table[2].ticks = proc_table[2].priority =  5;
-	proc_table[3].ticks = proc_table[3].priority =  5;
+    proc_table[1].nr_tty = 0;
+    proc_table[2].nr_tty = 1;
+    proc_table[3].nr_tty = 2;
 
-        proc_table[1].nr_tty = 0;
-        proc_table[2].nr_tty = 1;
-        proc_table[3].nr_tty = 2;
-
-	k_reenter = 0;
-	ticks = 0;
-
-	p_proc_ready	= proc_table;
+	change_proc_list(READY, RUNNING, proc_table);
 
 	init_clock();
-        init_keyboard();
+    init_keyboard();
+
+    k_reenter = 0;
+    ticks = 0;
 
 	restart();
 
@@ -132,3 +162,18 @@ void TestC()
 		milli_delay(200);
 	}
 }
+
+
+
+void clearScreen()
+{
+    int i;
+    disp_pos=0;
+    for(i=0;i<80*25;i++)
+    {
+        disp_str(" ");
+    }
+    disp_pos=0;
+    
+}
+

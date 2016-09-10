@@ -46,7 +46,8 @@ image : realclean everything clean buildimg
 
 clean :
 	rm -f $(OBJS)
-
+run :
+	bochs -f bochsrc
 realclean :
 	rm -f $(OBJS) $(ORANGESBOOT) $(ORANGESKERNEL)
 
@@ -76,12 +77,10 @@ kernel/kernel.o : kernel/kernel.asm include/sconst.inc
 kernel/syscall.o : kernel/syscall.asm include/sconst.inc
 	$(ASM) $(ASMKFLAGS) -o $@ $<
 
-kernel/start.o: kernel/start.c include/type.h include/const.h include/protect.h include/string.h include/proc.h include/proto.h \
-			include/global.h
+kernel/start.o: kernel/start.c include/type.h include/const.h include/protect.h include/string.h include/proc.h include/proto.h include/global.h
 	$(CC) $(CFLAGS) -o $@ $<
 
-kernel/main.o: kernel/main.c include/type.h include/const.h include/protect.h include/string.h include/proc.h include/proto.h \
-			include/global.h
+kernel/main.o: kernel/main.c include/type.h include/const.h include/protect.h include/string.h include/proc.h include/proto.h include/global.h
 	$(CC) $(CFLAGS) -o $@ $<
 
 kernel/clock.o: kernel/clock.c

@@ -14,6 +14,8 @@ PUBLIC void	disp_color_str(char * info, int color);
 /* protect.c */
 PUBLIC void	init_prot();
 PUBLIC u32	seg2phys(u16 seg);
+PUBLIC void painc();
+
 
 /* klib.c */
 PUBLIC void	delay(int time);
@@ -56,7 +58,7 @@ PUBLIC  int     vsprintf(char *buf, const char *fmt, va_list args);
 /* 系统调用 - 系统级 */
 /* proc.c */
 PUBLIC  int     sys_get_ticks();
-PUBLIC  int     sys_write(char* buf, int len, PROCESS* p_proc);
+PUBLIC  int     sys_write(char* buf, int len, proc* p_proc);
 /* syscall.asm */
 PUBLIC  void    sys_call();             /* int_handler */
 
@@ -64,3 +66,7 @@ PUBLIC  void    sys_call();             /* int_handler */
 PUBLIC  int     get_ticks();
 PUBLIC  void    write(char* buf, int len);
 
+//切换进程链表
+void change_proc_list(int pre_status, int next_status, proc * p);
+
+proc_node *add_proc_node(proc_node **head, proc *p);

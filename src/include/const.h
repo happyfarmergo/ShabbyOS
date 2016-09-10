@@ -8,7 +8,13 @@
 #ifndef	_ORANGES_CONST_H_
 #define	_ORANGES_CONST_H_
 
+/* max() & min() */
+#define max(a,b)    ((a) > (b) ? (a) : (b))
+#define min(a,b)    ((a) < (b) ? (a) : (b))
 
+/* string */
+#define STR_DEFAULT_LEN 1024
+                                                    
 /* EXTERN */
 #define	EXTERN	extern	/* EXTERN is defined as extern except in global.c */
 
@@ -98,5 +104,16 @@
 
 /* system call */
 #define NR_SYS_CALL     2
+
+#define ASSERT
+#ifdef ASSERT
+void assertion_failure(char *exp, char *file, char *base_file, int line);
+#define assert(exp)  if(exp); else assertion_failure(#exp, __FILE__, __BASE_FILE__, __LINE__)
+#else
+#define assert(exp)
+#endif
+
+#define NULL 0
+#define MAX_PROCS 128
 
 #endif /* _ORANGES_CONST_H_ */
