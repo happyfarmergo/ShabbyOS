@@ -12,7 +12,7 @@
 
 * 实现了终端这一系统级应用和计算器这一用户级应用
   - 终端支持clear，ps，exit等简单的命令
-  - 计算机能够进行十以内的四则运算
+  - 计算器能够进行十以内的四则运算
 
 ##项目环境
 
@@ -22,13 +22,20 @@
 ## 使用方法
 
   * 确保你已经装了Ubuntu 和 Bochs
+
   * 在terminal里面运行下面的命令完成配置
+
     $ sudo  apt-get install build-essential nasm bochs bochs-x vgabios
   * 将项目clone到本地,首先打开到目标文件夹下,然后运行:
+
     $ git clone https://github.com/happyfarmergo/ShabbyOS.git
+
     $ cd ShabbyOS/
+
     $ sudo make image
+
     $ bochs -f bochsrc
+
     $ 回车再输入 c 进入
 
 ## 项目分工
