@@ -24,8 +24,7 @@ EXTERN int k;
  *======================================================================*/
 PUBLIC void schedule()
 {
-	// disp_int(k);
-	// k++;
+	k++;
 	proc * tar = select_one_proc();
 	
 	if(tar == NULL){//就绪队列空
@@ -44,11 +43,25 @@ PUBLIC void schedule()
 
 	// disp_str(p_proc_ready->p_name);
 	// disp_str("\n");
-	// if(k==5){
+	// if(k<=4){
+	// 	disp_int(k);
 	// 	show_ready_list();
-	// 	while(1);
+
 	// }
-    // milli_delay(1000);
+}
+
+PUBLIC void block(){
+	proc * tar = select_one_proc();
+	
+	if(tar == NULL){//就绪队列空
+		init_proc();
+		// disp_str("\nrun all proc");
+		tar = select_one_proc();
+	}
+	disp_str(tar->p_name);
+	change_proc_list(RUNNING, WAITING, p_proc_ready);//切换到队列
+	change_proc_list(READY, RUNNING, tar);
+	show_waiting_list();   
 }
 
 /*======================================================================*
@@ -64,7 +77,7 @@ PUBLIC int sys_get_ticks()
 //add
 
 void init_proc(){
-	// disp_str("init_proc");
+	// disp_str("init_proc \n");
 	int i;
 	for(i = REALTIME; i >= IDLE; --i){
 		proc_node * p = h_ready[i];
@@ -77,8 +90,6 @@ void init_proc(){
 
 
 proc *select_one_proc(){
-
-
 	proc_node* p = NULL;
 	proc *tar = NULL;
 	int i = 0;
@@ -149,6 +160,7 @@ proc_node *add_proc_node(proc_node **head, proc *p){
 
 	if(*head == NULL){
 		*head = tar;
+		tar->prev = tar->next = NULL;
 		// disp_str("\nhead is null\n");
 	}
 	else{
@@ -202,6 +214,7 @@ void change_proc_list(int pre_status, int next_status, proc * p){
 
 			add_proc_node(&h_ready[p->priority], p);
 
+			
 			break;
 		default:
 			panic("change_proc_list error");
@@ -209,3 +222,9 @@ void change_proc_list(int pre_status, int next_status, proc * p){
 	p->status = next_status;
 }
 
+PUBLIC void wake(proc *p_proc){
+	disp_str("WAITING to READY: \n");
+			show_ready_list();
+			disp_str("///////////////");
+	change_proc_list(WAITING, READY, p_proc);
+}

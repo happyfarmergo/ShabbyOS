@@ -12,6 +12,10 @@
 #define max(a,b)    ((a) > (b) ? (a) : (b))
 #define min(a,b)    ((a) < (b) ? (a) : (b))
 
+#define boolean int
+#define TRUE  1
+#define FALSE 0
+
 /* string */
 #define STR_DEFAULT_LEN 1024
 #define PRIO_NUM        5
@@ -103,7 +107,7 @@
 #define	AT_WINI_IRQ	14	/* at winchester */
 
 /* system call */
-#define NR_SYS_CALL     2
+#define NR_SYS_CALL     3
 
 #define ASSERT
 #ifdef ASSERT

@@ -12,6 +12,7 @@
 #define TTY_IN_BYTES	256	/* tty input queue size */
 
 struct s_console;
+struct s_proc;
 
 /* TTY */
 typedef struct s_tty
@@ -21,7 +22,17 @@ typedef struct s_tty
 	u32*	p_inbuf_tail;		/* 指向键盘任务应处理的键值 */
 	int	inbuf_count;		/* 缓冲区中已经填充了多少 */
 
+    char buffer[TTY_IN_BYTES];
+    int buf_len;
+
+    char str[TTY_IN_BYTES + 1];
+    int str_len;
+
+    boolean b_scanf;
+
 	struct s_console *	p_console;
+
+    struct s_proc * proc_waiting;
 }TTY;
 
 

@@ -189,3 +189,14 @@ PUBLIC void scroll_screen(CONSOLE* p_con, int direction)
 	flush(p_con);
 }
 
+PUBLIC int sys_clear(TTY* p_tty)
+{
+	p_tty->p_console->current_start_addr = p_tty->p_console->original_addr;
+	p_tty->p_console->cursor = p_tty->p_console->original_addr;
+	int i;
+	for ( i = 0; i < p_tty->p_console->v_mem_limit ; i++ )
+	{
+		printf(" ");
+	}
+	p_tty->p_console->cursor=p_tty->p_console->current_start_addr= p_tty->p_console->original_addr;
+}

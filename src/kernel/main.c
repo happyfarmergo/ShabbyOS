@@ -19,10 +19,34 @@ EXTERN proc_node *h_ready[], *h_waiting;
 EXTERN proc_node proc_list[];
 EXTERN int index_free;
 EXTERN int k;
+
+
+int strcmp(char *str1,char *str2)
+{
+    int i;
+    for (i=0; i<strlen(str1); i++)
+    {
+        if (i==strlen(str2)) return 1;
+        if (str1[i]>str2[i]) return 1;
+        else if (str1[i]<str2[i]) return -1;
+    }
+    return 0;
+}
+
+void strlwr(char *str)
+{
+    int i;
+    for (i=0; i<strlen(str); i++)
+    {
+        if ('A'<=str[i] && str[i]<='Z') str[i]=str[i]+'a'-'A';
+    }
+}
+
+
 PUBLIC void show_ready_list(){
     int i;
+    disp_str("ready list : \n");
     for(i = REALTIME; i >= IDLE; --i){
-        disp_str("\n");
         disp_int(i);
         disp_str(": ");
         proc_node *p = h_ready[i];
@@ -31,6 +55,18 @@ PUBLIC void show_ready_list(){
             disp_int(p->kproc->ticks);
             disp_str(" ");
         }
+        disp_str("\n");
+
+    }
+}
+
+PUBLIC void show_waiting_list(){
+    proc_node *p = h_waiting;
+    disp_str("waiting list\n");
+    while(p!=NULL){
+        disp_str("\n");
+        disp_str(p->kproc->p_name);
+        p = p->next;
     }
 }
 
@@ -54,12 +90,12 @@ PUBLIC   void kernel_init(){
 
 PUBLIC int kernel_main()
 {
-	disp_str("-----\"kernel_main\" begins-----\n");
-    // clearScreen();
+    clearScreen();
+    displayWelcome();
     kernel_init();
 
-    disp_str("test");
-
+    // disp_str("test");
+    
 	TASK*		p_task		= task_table;
 	PROCESS*	p_proc		= proc_table;
 	char*		p_task_stack= task_stack + STACK_SIZE_TOTAL;
@@ -123,14 +159,17 @@ PUBLIC int kernel_main()
 
 	}
 
-    disp_str("test");
-
+    // disp_str("test");
 
     proc_table[1].nr_tty = 0;
-    proc_table[2].nr_tty = 1;
+    proc_table[2].nr_tty = 2;
     proc_table[3].nr_tty = 2;
+    proc_table[4].nr_tty = 2;
+    proc_table[5].nr_tty = 1;
 
 	change_proc_list(READY, RUNNING, proc_table);
+    // show_ready_list();
+    // disp_str("kernel_main\n");
 
 	init_clock();
     init_keyboard();
@@ -141,6 +180,216 @@ PUBLIC int kernel_main()
 	restart();
 
 	while(1){}
+}
+
+/*           Terminal         */
+
+
+char *status_str(int status){
+    if(status == RUNNING){
+        return "RUNNING";
+    }else if(status == READY){
+        return "READY";
+    }else if(status == WAITING){
+        return "WAITING";
+    }
+    return NULL;
+}
+
+char *prio_str(int prio){
+    if(prio == IDLE){
+        return "IDLE";
+    }else if(prio == LOW){
+        return "LOW";
+    }else if(prio == MEDIUM){
+        return "MEDIUM";
+    }else if(prio == HIGH){
+        return "HIGH";
+    }else if(prio == REALTIME){
+        return "REALTIME";
+    }
+    return NULL;
+}
+
+void ps(){
+    int i;
+    for(i = 0; i<NR_TASKS + NR_PROCS; ++i){
+        printf("%s: %s\n", proc_table[i].p_name, status_str(proc_table[i].status), prio_str(proc_table[i].priority));
+    }
+}
+
+void dispatch_command(char *command){
+    // disp_str("dispatch_command");
+    strlwr(command);
+    if(strcmp(command, "clear")==0){
+        clearScreen();
+        sys_clear(tty_table);
+
+    }else if(strcmp(command, "ps")==0){
+        ps();
+
+    }else if(strcmp(command, "exit")==0){
+        displayGoodBye();
+        while(1);
+    }else{
+
+        printf("bad command\n");
+    }
+}
+
+PUBLIC void Terminal(){
+    tty_table->b_scanf = FALSE;
+    while(1){
+        printf("$ ");
+        scanf_on(tty_table);
+        while(tty_table->b_scanf);
+        dispatch_command(tty_table->str);
+    }
+}
+
+
+/*             Calculator           */
+
+stack calStack;
+char calStr[STACK_DEFAULT_SIZE];
+int p_str;
+
+boolean isdigit(ch){
+    return ch<='9' && ch >='0';
+}
+
+int isp(char ch){
+    if(ch == '+')return 1;
+    if(ch == '-')return 2;
+    if(ch == '*')return 3;
+    if(ch == '/')return 4;
+    if(ch == '('|| ch == ')')return 0;
+    if(ch == '#')return -1;
+}
+
+void push(stack *sk, char ch){
+    sk->s[sk->top++]=ch;
+    assert(sk->top<STACK_DEFAULT_SIZE);
+}
+
+char top(stack *sk){
+    assert(top!=0);
+    return sk->s[sk->top-1];
+}
+
+char pop(stack *sk){
+    assert(top!=0);
+    return sk->s[--sk->top];
+}
+
+void init_stack(stack *sk){
+    sk->top = 0;
+}
+
+void show_stack(){
+    int i;
+    for(i = 0 ; i < calStack.top; ++i){
+        printf("%c", calStack.s[i]);
+    }
+    printf("\n");
+}
+
+char *postfix(char *str){
+    init_stack(&calStack);
+    char *p = str;
+    char *q = calStr;
+    push(&calStack, '#');
+    while(calStack.top!=0&&*p!='#'){
+        if(isdigit(*p)){
+            *q++=*p++;
+        }
+        else{
+            char op = top(&calStack);
+            if(isp(op)<isp(*p))
+                push(&calStack, *p++);
+            else if(isp(op) > isp(*p) && *p!='('){
+                *q++ = pop(&calStack);
+                
+            }else{
+                char op = top(&calStack);
+                if(op == '(')p++;
+                else *q++=pop(&calStack);
+            }
+        }
+    }
+    while(calStack.top!=0){
+        // printf("%c\n", top(&calStack));
+        *q++=pop(&calStack);
+    }
+    *q = '\0';
+    return calStr;
+}
+
+void do_operator(char op){
+    int right = pop(&calStack);
+    int left = pop(&calStack);
+    // printf("%d %d\n", left, right);
+    int value;
+    switch(op){
+        case '+':
+            value = left + right;
+            push(&calStack, value);
+            break;
+        case '-':
+            value = left - right;
+            push(&calStack, value);
+            break;
+        case '*':
+            value = left * right;
+            push(&calStack, value);
+            break;
+        case '/':
+            if(right == 0){
+                printf("divide by 0!\n");
+            }
+            else{
+                value = left / right;
+                push(&calStack, value);
+            }
+            break;
+    }
+}
+
+void calculate(char *str){
+    char *s = postfix(str);
+    // printf("%s\n", s);
+    // while(1);
+    p_str = 0;
+    init_stack(&calStack);
+    char *p = s;
+    while(*p!='#'){
+        switch(*p){
+            case '+':
+            case '-':
+            case '*':
+            case '/':
+                do_operator(*p++);
+                break;
+            default:
+                push(&calStack, (*p-'0'));
+                p++;
+                // printf("stack top: %d\n", top(&calStack));
+        }
+    }
+    printf("%d\n", top(&calStack));
+}
+
+PUBLIC void Calculator(){
+    printf("This is a Calculator application\n");
+    printf("The expression must end with #\n");
+    TTY *p_tty = tty_table + 1;
+    while(1){
+        printf("> ");
+        scanf_on(p_tty);
+        while(p_tty->b_scanf);
+        // printf("%s\n", p_tty->str);
+        calculate(p_tty->str);
+    }
 }
 
 /*======================================================================*
@@ -193,3 +442,34 @@ void clearScreen()
     
 }
 
+
+
+void displayWelcome()
+{
+    clearScreen();
+    
+    disp_str("=============================================================================\n");
+    disp_str("                            Welcome To ShabbyOS\n");
+    disp_str("                                  Made By                       \n");
+    disp_str("                        Lvjinhua           Yisiqi          \n");
+    disp_str("=============================================================================\n");
+}
+
+
+void displayGoodBye()
+{
+
+    clearScreen();
+    disp_str("\n\n\n\n\n");
+    disp_color_str("             #####                             ######               \n", 0x1);     
+    disp_color_str("            #     #  ####   ####  #####        #     # #   # ###### \n", 0x1); 
+    disp_color_str("            #       #    # #    # #    #       #     #  # #  #      \n", 0x2); 
+    disp_color_str("            #  #### #    # #    # #    #       ######    #   #####  \n", 0x2); 
+    disp_color_str("            #     # #    # #    # #    #       #     #   #   #      \n", 0x3); 
+    disp_color_str("            #     # #    # #    # #    #       #     #   #   #      \n", 0x3); 
+    disp_color_str("             #####   ####   ####  #####        ######    #   ###### \n", 0x3);
+    disp_str("\n\n\n");     
+    disp_color_str("         ------------------------- Made BY ---------------------------\n\n",0xB);  
+    disp_color_str("              ------------------Lvjinhua  147- ---------------\n\n",0xF);  
+    disp_color_str("         -------------------------Goodbye-----------------------------\n\n",0xD);
+}

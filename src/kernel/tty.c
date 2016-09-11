@@ -64,16 +64,20 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
         char output[2] = {'\0', '\0'};
 
         if (!(key & FLAG_EXT)) {
-		put_key(p_tty, key);
+		    put_key(p_tty, key);
+            if(p_tty->b_scanf)
+                put_buf(p_tty, key);
         }
         else {
-                int raw_code = key & MASK_RAW;
-                switch(raw_code) {
-                case ENTER:
-			put_key(p_tty, '\n');
-			break;
-                case BACKSPACE:
+            int raw_code = key & MASK_RAW;
+            switch(raw_code) {
+            case ENTER:
+			    put_key(p_tty, '\n');
+                put_str(p_tty);
+			    break;
+            case BACKSPACE:
 			put_key(p_tty, '\b');
+            p_tty->buf_len--;
 			break;
                 case UP:
                         if ((key & FLAG_SHIFT_L) || (key & FLAG_SHIFT_R)) {
@@ -97,7 +101,7 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
 		case F10:
 		case F11:
 		case F12:
-			/* Alt + F1~F12 */
+			/* Ctrl + F1~F12 */
 			if ((key & FLAG_CTRL_L) || (key & FLAG_CTRL_R)) {
 				select_console(raw_code - F1);
 			}
@@ -123,6 +127,30 @@ PRIVATE void put_key(TTY* p_tty, u32 key)
 	}
 }
 
+void put_buf(TTY* p_tty, u32 key){
+    p_tty->buffer[p_tty->buf_len++] = key;
+}
+
+void put_str(TTY *p_tty){
+    int i;
+    for(i = 0; i<p_tty->buf_len; ++i){
+        p_tty->str[i] = p_tty->buffer[i];
+    }
+    p_tty->str[i] = '\0';
+    p_tty->str_len = p_tty->buf_len;
+    scanf_off(p_tty);
+    // wake(p_tty->proc_waiting);
+}
+
+PUBLIC void scanf_on(TTY *p_tty){
+    p_tty->b_scanf = TRUE;
+    p_tty->buf_len = 0;
+}
+
+PUBLIC void scanf_off(TTY *p_tty){
+    p_tty->b_scanf = FALSE;
+    p_tty->buf_len = 0;
+}
 
 /*======================================================================*
 			      tty_do_read
@@ -189,4 +217,23 @@ int printl(const char *fmt, ...)
     sys_write(buf, i, proc_table);
     
     return i;
+}
+
+
+PRIVATE void wait_scanf(TTY *p_tty, PROCESS *p_proc){
+    p_tty->proc_waiting = p_proc;
+    
+    // block();
+    while(p_tty->b_scanf);
+
+    p_tty->proc_waiting = NULL;
+}
+
+PUBLIC char *sys_scanf(PROCESS* p_proc){
+    TTY *p_tty = tty_table + p_proc->nr_tty;
+    disp_str("begin scanf");
+    scanf_on(p_tty);
+    wait_scanf(p_tty, p_proc);
+    disp_str("end scanf");
+    return p_tty->str;
 }
