@@ -34,7 +34,7 @@
 
     $ sudo make image
 
-    $ bochs -f bochsrc
+    $ make run
 
     $ 回车再输入 c 进入
 
